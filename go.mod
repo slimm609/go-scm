@@ -1,4 +1,4 @@
-module github.com/jenkins-x/go-scm
+module github.com/slimm609/go-scm
 
 require (
 	code.gitea.io/sdk/gitea v0.13.0
