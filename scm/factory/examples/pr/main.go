@@ -7,8 +7,8 @@ import (
 	"strconv"
 
 	"github.com/ghodss/yaml"
-	"github.com/slimm609/go-scm/scm"
 	"github.com/pkg/errors"
+	"github.com/slimm609/go-scm/scm"
 
 	"github.com/slimm609/go-scm/scm/factory"
 	"github.com/slimm609/go-scm/scm/factory/examples/helpers"

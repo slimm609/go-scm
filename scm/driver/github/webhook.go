@@ -14,10 +14,10 @@ import (
 	"regexp"
 	"time"
 
+	"github.com/sirupsen/logrus"
 	"github.com/slimm609/go-scm/pkg/hmac"
 	"github.com/slimm609/go-scm/scm"
 	"github.com/slimm609/go-scm/scm/driver/internal/null"
-	"github.com/sirupsen/logrus"
 )
 
 var logWebHooks = os.Getenv("GO_SCM_LOG_WEBHOOKS") == "true"

@@ -16,8 +16,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/slimm609/go-scm/scm"
 	githubql "github.com/shurcooL/githubv4"
+	"github.com/slimm609/go-scm/scm"
 )
 
 // Abort requests that don't return in 5 mins. Longest graphql calls can

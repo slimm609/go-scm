@@ -6,8 +6,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/slimm609/go-scm/scm"
 	"github.com/pkg/errors"
+	"github.com/slimm609/go-scm/scm"
 )
 
 const (

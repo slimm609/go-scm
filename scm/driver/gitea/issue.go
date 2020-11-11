@@ -9,8 +9,8 @@ import (
 	"fmt"
 
 	"code.gitea.io/sdk/gitea"
-	"github.com/slimm609/go-scm/scm"
 	"github.com/pkg/errors"
+	"github.com/slimm609/go-scm/scm"
 	"k8s.io/apimachinery/pkg/util/sets"
 )
 
