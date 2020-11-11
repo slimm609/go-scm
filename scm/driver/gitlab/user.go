@@ -46,23 +46,27 @@ func (s *userService) FindLogin(ctx context.Context, login string) (*scm.User, *
 		if err != nil {
 			path = fmt.Sprintf("api/v4/users?search=%s&%s", login, encodeListOptions(opts))
 			resp, err = s.client.do(ctx, "GET", path, nil, &out)
+			if err != nil {
+				return nil, nil, err
+			}
+			firstRun = true
+			for _, u := range out {
+				if strings.EqualFold(u.Username, login) {
+					return convertUser(u), resp, err
+				}
+			}
+			opts.Page++
 		} else {
 			var single *user
 			path = fmt.Sprintf("api/v4/users/%s", login)
 			fmt.Printf("path: %s\n", path)
 			resp, err = s.client.do(ctx, "GET", path, nil, &single)
-			out = []*user{single}
-		}
-		if err != nil {
-			return nil, nil, err
-		}
-		firstRun = true
-		for _, u := range out {
-			if strings.EqualFold(u.Username, login) {
-				return convertUser(u), resp, err
+			if err != nil {
+				return nil, nil, err
 			}
+			return convertUser(single), resp, err
 		}
-		opts.Page++
+
 	}
 	return nil, resp, scm.ErrNotFound
 }
