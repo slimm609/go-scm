@@ -5,6 +5,7 @@
 package gitlab
 
 import (
+	"context"
 	"crypto/subtle"
 	"encoding/json"
 	"fmt"
@@ -39,7 +40,7 @@ func (s *webhookService) Parse(req *http.Request, fn scm.SecretFunc) (scm.Webhoo
 	case "Merge Request Hook":
 		hook, err = parsePullRequestHook(data)
 	case "Note Hook":
-		hook, err = parseCommentHook(data)
+		hook, err = s.parseCommentHook(data)
 	default:
 		return nil, scm.UnknownWebhook{Event: event}
 	}
@@ -111,7 +112,7 @@ func parsePullRequestHook(data []byte) (scm.Webhook, error) {
 	}
 }
 
-func parseCommentHook(data []byte) (scm.Webhook, error) {
+func (s *webhookService) parseCommentHook(data []byte) (scm.Webhook, error) {
 	src := new(commentHook)
 	err := json.Unmarshal(data, src)
 	if err != nil {
@@ -123,7 +124,7 @@ func parseCommentHook(data []byte) (scm.Webhook, error) {
 	kind := src.ObjectAttributes.NoteableType
 	switch kind {
 	case "MergeRequest":
-		return convertMergeRequestCommentHook(src), nil
+		return s.convertMergeRequestCommentHook(src), nil
 	default:
 		return nil, scm.UnknownWebhook{Event: kind}
 	}
@@ -285,14 +286,9 @@ func convertPullRequestHook(src *pullRequestHook) *scm.PullRequestHook {
 	}
 }
 
-func convertMergeRequestCommentHook(src *commentHook) *scm.PullRequestCommentHook {
-	user := scm.User{
-		ID:     src.ObjectAttributes.AuthorID,
-		Login:  src.User.Username,
-		Name:   src.User.Name,
-		Email:  "", // TODO how do we get the pull request author email?
-		Avatar: src.User.AvatarURL,
-	}
+func (s *webhookService) convertMergeRequestCommentHook(src *commentHook) *scm.PullRequestCommentHook {
+	user, _, _ := s.client.Users.FindLogin(context.TODO(), strconv.Itoa(src.ObjectAttributes.AuthorID))
+	author, _, _ := s.client.Users.FindLogin(context.TODO(), strconv.Itoa(src.MergeRequest.AuthorID))
 
 	fork := scm.Join(
 		src.MergeRequest.Source.Namespace,
@@ -329,7 +325,7 @@ func convertMergeRequestCommentHook(src *commentHook) *scm.PullRequestCommentHoo
 		Merged:  src.MergeRequest.State == "merged",
 		Created: prCreatedAt,
 		Updated: prUpdatedAt, // 2017-12-10 17:01:11 UTC
-		Author:  user,
+		Author:  *author,
 	}
 	pr.Base.Repo = *convertRepositoryHook(src.MergeRequest.Target)
 	pr.Head.Repo = *convertRepositoryHook(src.MergeRequest.Source)
@@ -344,11 +340,11 @@ func convertMergeRequestCommentHook(src *commentHook) *scm.PullRequestCommentHoo
 		Comment: scm.Comment{
 			ID:      src.ObjectAttributes.ID,
 			Body:    src.ObjectAttributes.Note,
-			Author:  user, // TODO: is the user the author id ??
+			Author:  *user, // TODO: is the user the author id ??
 			Created: createdAt,
 			Updated: updatedAt,
 		},
-		Sender: user,
+		Sender: *user,
 	}
 }
 

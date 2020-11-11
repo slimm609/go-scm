@@ -7,6 +7,7 @@ package gitlab
 import (
 	"context"
 	"fmt"
+	"strconv"
 	"strings"
 
 	"github.com/jenkins-x/go-scm/scm"
@@ -34,13 +35,19 @@ func (s *userService) Find(ctx context.Context) (*scm.User, *scm.Response, error
 func (s *userService) FindLogin(ctx context.Context, login string) (*scm.User, *scm.Response, error) {
 	var resp *scm.Response
 	var err error
+	var path string
 	firstRun := false
 	opts := scm.ListOptions{
 		Page: 1,
 	}
 	for !firstRun || (resp != nil && opts.Page <= resp.Page.Last) {
 		out := []*user{}
-		path := fmt.Sprintf("api/v4/users?search=%s&%s", login, encodeListOptions(opts))
+		_, err = strconv.Atoi(login)
+		if err != nil {
+			path = fmt.Sprintf("api/v4/users?search=%s&%s", login, encodeListOptions(opts))
+		} else {
+			path = fmt.Sprintf("api/v4/users/%s", login)
+		}
 		resp, err = s.client.do(ctx, "GET", path, nil, &out)
 		if err != nil {
 			return nil, nil, err
