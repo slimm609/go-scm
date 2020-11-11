@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/jenkins-x/go-scm/scm"
+	"github.com/slimm609/go-scm/scm"
 )
 
 // TODO(bradrydzewski) commit link is an empty string.

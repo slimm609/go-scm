@@ -7,7 +7,7 @@ package gogs
 import (
 	"context"
 
-	"github.com/jenkins-x/go-scm/scm"
+	"github.com/slimm609/go-scm/scm"
 )
 
 type pullService struct {

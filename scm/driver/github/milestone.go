@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/jenkins-x/go-scm/scm"
+	"github.com/slimm609/go-scm/scm"
 )
 
 type milestoneService struct {

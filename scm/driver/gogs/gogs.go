@@ -15,7 +15,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/jenkins-x/go-scm/scm"
+	"github.com/slimm609/go-scm/scm"
 )
 
 // NewWebHookService creates a new instance of the webhook service without the rest of the client

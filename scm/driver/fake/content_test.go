@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/jenkins-x/go-scm/scm/driver/fake"
+	"github.com/slimm609/go-scm/scm/driver/fake"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

@@ -9,8 +9,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/jenkins-x/go-scm/scm/driver/github"
-	"github.com/jenkins-x/go-scm/scm/transport"
+	"github.com/slimm609/go-scm/scm/driver/github"
+	"github.com/slimm609/go-scm/scm/transport"
 )
 
 func TestGitHub(t *testing.T) {

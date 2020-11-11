@@ -10,8 +10,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/jenkins-x/go-scm/scm"
-	"github.com/jenkins-x/go-scm/scm/driver/internal/null"
+	"github.com/slimm609/go-scm/scm"
+	"github.com/slimm609/go-scm/scm/driver/internal/null"
 )
 
 type userService struct {

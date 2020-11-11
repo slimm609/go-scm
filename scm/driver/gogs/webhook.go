@@ -12,8 +12,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/jenkins-x/go-scm/pkg/hmac"
-	"github.com/jenkins-x/go-scm/scm"
+	"github.com/slimm609/go-scm/pkg/hmac"
+	"github.com/slimm609/go-scm/scm"
 )
 
 type webhookService struct {

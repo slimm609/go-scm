@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/jenkins-x/go-scm/scm"
+	"github.com/slimm609/go-scm/scm"
 )
 
 // expiryDelta determines how earlier a token should be considered

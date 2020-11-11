@@ -14,7 +14,7 @@ import (
 	"github.com/h2non/gock"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/jenkins-x/go-scm/scm"
+	"github.com/slimm609/go-scm/scm"
 )
 
 func TestReviewFind(t *testing.T) {

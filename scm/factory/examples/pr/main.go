@@ -7,11 +7,11 @@ import (
 	"strconv"
 
 	"github.com/ghodss/yaml"
-	"github.com/jenkins-x/go-scm/scm"
+	"github.com/slimm609/go-scm/scm"
 	"github.com/pkg/errors"
 
-	"github.com/jenkins-x/go-scm/scm/factory"
-	"github.com/jenkins-x/go-scm/scm/factory/examples/helpers"
+	"github.com/slimm609/go-scm/scm/factory"
+	"github.com/slimm609/go-scm/scm/factory/examples/helpers"
 )
 
 func main() {

@@ -1,6 +1,6 @@
 package fake
 
-import "github.com/jenkins-x/go-scm/scm"
+import "github.com/slimm609/go-scm/scm"
 
 // Data is used to store/represent test data for the fake client
 type Data struct {

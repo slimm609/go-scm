@@ -7,7 +7,7 @@ package bitbucket
 import (
 	"testing"
 
-	"github.com/jenkins-x/go-scm/scm"
+	"github.com/slimm609/go-scm/scm"
 )
 
 func Test_encodeListOptions(t *testing.T) {
