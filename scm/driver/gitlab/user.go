@@ -49,6 +49,7 @@ func (s *userService) FindLogin(ctx context.Context, login string) (*scm.User, *
 		} else {
 			var single *user
 			path = fmt.Sprintf("api/v4/users/%s", login)
+			fmt.Printf("path: %s\n", path)
 			resp, err = s.client.do(ctx, "GET", path, nil, &single)
 			out = []*user{single}
 		}
