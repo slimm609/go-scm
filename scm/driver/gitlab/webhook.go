@@ -288,7 +288,13 @@ func convertPullRequestHook(src *pullRequestHook) *scm.PullRequestHook {
 
 func (s *webhookService) convertMergeRequestCommentHook(src *commentHook) *scm.PullRequestCommentHook {
 	user, _, _ := s.client.Users.FindLogin(context.TODO(), strconv.Itoa(src.ObjectAttributes.AuthorID))
-	author, _, _ := s.client.Users.FindLogin(context.TODO(), strconv.Itoa(src.MergeRequest.AuthorID))
+	author, res, err := s.client.Users.FindLogin(context.TODO(), strconv.Itoa(src.MergeRequest.AuthorID))
+	if err != nil {
+		fmt.Printf("author error: %s", err)
+		fmt.Printf("error status: %d", res.Status)
+		b, _ := ioutil.ReadAll(res.Body)
+		fmt.Printf("body: %s\n", string(b))
+	}
 
 	fork := scm.Join(
 		src.MergeRequest.Source.Namespace,
