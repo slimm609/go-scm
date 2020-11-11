@@ -45,10 +45,13 @@ func (s *userService) FindLogin(ctx context.Context, login string) (*scm.User, *
 		_, err = strconv.Atoi(login)
 		if err != nil {
 			path = fmt.Sprintf("api/v4/users?search=%s&%s", login, encodeListOptions(opts))
+			resp, err = s.client.do(ctx, "GET", path, nil, &out)
 		} else {
+			var single *user
 			path = fmt.Sprintf("api/v4/users/%s", login)
+			resp, err = s.client.do(ctx, "GET", path, nil, &single)
+			out = []*user{single}
 		}
-		resp, err = s.client.do(ctx, "GET", path, nil, &out)
 		if err != nil {
 			return nil, nil, err
 		}
