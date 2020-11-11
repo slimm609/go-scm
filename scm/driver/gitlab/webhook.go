@@ -290,8 +290,10 @@ func (s *webhookService) convertMergeRequestCommentHook(src *commentHook) *scm.P
 	user, _, _ := s.client.Users.FindLogin(context.TODO(), strconv.Itoa(src.ObjectAttributes.AuthorID))
 	author, res, err := s.client.Users.FindLogin(context.TODO(), strconv.Itoa(src.MergeRequest.AuthorID))
 	if err != nil {
-		fmt.Printf("author error: %s", err)
-		fmt.Printf("error status: %d", res.Status)
+		fmt.Printf("user id: %s\n", strconv.Itoa(src.ObjectAttributes.AuthorID))
+		fmt.Printf("author id: %s\n", strconv.Itoa(src.MergeRequest.AuthorID))
+		fmt.Printf("author error: %s\n", err)
+		fmt.Printf("error status: %d\n", res.Status)
 		b, _ := ioutil.ReadAll(res.Body)
 		fmt.Printf("body: %s\n", string(b))
 	}
