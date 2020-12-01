@@ -477,6 +477,8 @@ func convertChange(from *change) *scm.Change {
 		PreviousPath: from.OldPath,
 		Added:        from.Added,
 		Deleted:      from.Deleted,
+		Additions:    from.Added,
+		Deletions:    from.Deleted,
 		Renamed:      from.Renamed,
 		Patch:        from.Diff,
 	}
